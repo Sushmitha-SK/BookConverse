@@ -1,3 +1,6 @@
+
+import { Mic, BookOpen, Headphones, Sparkles, ChevronRight, Volume2, Play, Pause, Star, ArrowRight, Check, Menu, X, MessageSquare, Zap, Globe, Lock } from "lucide-react";
+
 export const navItems = [
     { label: "Library", href: "/" },
     { label: "Add New", href: "/books/new" },
@@ -50,5 +53,38 @@ export const steps = [
         num: "03",
         title: "Chat by Voice",
         desc: "Press the microphone and discuss your book naturally. Get explanations, summaries, examples, and answers in real time.",
+    },
+];
+
+export const features = [
+    {
+        icon: Mic,
+        title: "Natural Voice Dialogue",
+        desc: "Speak naturally — no commands or keywords. The AI understands context, follows up, and responds like a thoughtful reader.",
+    },
+    {
+        icon: Zap,
+        title: "Instant Understanding",
+        desc: "Responses grounded entirely in the book's content. No hallucinations, no guessing — just the text, deeply understood.",
+    },
+    {
+        icon: Globe,
+        title: "50+ Languages",
+        desc: "Converse in your native language, even with books written in another. Real-time cross-lingual comprehension.",
+    },
+    {
+        icon: MessageSquare,
+        title: "Author & Character Modes",
+        desc: "Choose to speak with the author's perspective or step into a character's shoes for a fully immersive dialogue.",
+    },
+    {
+        icon: Sparkles,
+        title: "Deep Analysis Mode",
+        desc: "Ask for themes, motifs, narrative structure, or critical perspectives. Go beyond the surface with academic depth.",
+    },
+    {
+        icon: Lock,
+        title: "Private & Secure",
+        desc: "Your reading habits and conversations are yours. End-to-end encrypted and never used to train models.",
     },
 ];

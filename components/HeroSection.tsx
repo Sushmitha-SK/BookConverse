@@ -1,4 +1,3 @@
-import { books } from '@/app/data/data';
 import { ArrowRight, Mic, Play, Sparkles } from 'lucide-react'
 function Waveform({ active }: { active: boolean }) {
     const bars = 28;
@@ -56,10 +55,8 @@ const HeroSection = () => {
                 <span className="text-xs text-muted-foreground font-medium tracking-wide uppercase">Now with voice cloning for authors</span>
             </div>
 
-            <h1
-                className="relative text-center font-bold leading-[1.1] mb-6 max-w-4xl"
-                style={{ fontFamily: 'font-serif', fontSize: "clamp(2.8rem, 7vw, 5.5rem)" }}
-            >
+            <h1 className="relative text-center font-bold leading-[1.1] mb-6 max-w-4xl"
+                style={{ fontFamily: 'font-serif', fontSize: "clamp(2.8rem, 7vw, 5.5rem)" }}>
                 Talk to your books.
                 <br />
                 <em className="italic" style={{ color: "#3a6644" }}>They answer.</em>
