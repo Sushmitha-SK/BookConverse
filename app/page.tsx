@@ -1,3 +1,4 @@
+import CTA from '@/components/CTA'
 import Features from '@/components/Features'
 import HeroSection from '@/components/HeroSection'
 import HowItWorks from '@/components/HowItWorks'
@@ -12,6 +13,7 @@ const Page = () => {
       <Features />
       <Testimonials />
       <Pricing />
+      <CTA />
     </main>
   )
 }
