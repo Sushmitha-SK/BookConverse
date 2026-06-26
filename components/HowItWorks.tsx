@@ -6,7 +6,7 @@ const HowItWorks = () => {
             <div className="max-w-5xl mx-auto">
                 <div className="text-center mb-16">
                     <p className="text-xs text-primary uppercase tracking-widest font-medium mb-3">Simple by design</p>
-                    <h2 className="font-bold font-serif" style={{ fontSize: "clamp(2rem, 5vw, 3.2rem)" }}>
+                    <h2 className="font-bold font-serif text-[clamp(2rem,5vw,3.2rem)]">
                         Three steps to your first conversation
                     </h2>
                 </div>

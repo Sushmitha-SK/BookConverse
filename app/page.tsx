@@ -1,3 +1,4 @@
+import Features from '@/components/Features'
 import HeroSection from '@/components/HeroSection'
 import HowItWorks from '@/components/HowItWorks'
 
@@ -6,6 +7,7 @@ const Page = () => {
     <main className='wrapper container'>
       <HeroSection />
       <HowItWorks />
+      <Features />
     </main>
   )
 }

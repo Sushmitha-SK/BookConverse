@@ -7,6 +7,10 @@
   --primary-foreground: #ffffff;
   --secondary: #e4ede0;
   --secondary-foreground: #141f12;
+  --card: #ffffff;
+  --card-foreground: #141f12;
+  --border: rgba(20, 31, 18, 0.1);
+
 }
 
 @theme inline {
@@ -19,6 +23,11 @@
   --font-sans: var(--font-dmSans);
   --font-mono: var(--font-dmMono);
   --font-serif: var(--font-playfairDisplay);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-border: var(--border);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -31,6 +40,7 @@
     --secondary-foreground: oklch(0.985 0 0);
   }
 }
+
 
 
 body {
