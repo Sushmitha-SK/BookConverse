@@ -1,38 +1,40 @@
+import { books } from '@/app/data/data';
 import { ArrowRight, Mic, Play, Sparkles } from 'lucide-react'
+function Waveform({ active }: { active: boolean }) {
+    const bars = 28;
+    return (
+        <div className="flex items-center gap-0.75 h-10">
+            {Array.from({ length: bars }).map((_, i) => {
+                const baseH = [20, 40, 60, 80, 50, 30, 70, 90, 45, 65, 35, 85, 55, 25, 75, 95, 40, 60, 30, 80, 50, 70, 35, 55, 45, 65, 25, 75][i % 28];
+                return (
+                    <div
+                        key={i}
+                        className="rounded-full transition-all"
+                        style={{
+                            width: "3px",
+                            backgroundColor: active ? "#3a6644" : "#d4e2ce",
+                            height: active ? `${baseH}%` : "15%",
+                            animation: active ? `waveBar ${0.6 + (i % 5) * 0.15}s ease-in-out infinite alternate` : "none",
+                            animationDelay: `${(i * 0.04) % 0.6}s`,
+                        }}
+                    />
+                );
+            })}
+        </div>
+    );
+}
+
+function PulseRing() {
+    return (
+        <span className="absolute inset-0 rounded-full">
+            <span className="absolute inset-0 rounded-full bg-primary/30 animate-ping" style={{ animationDuration: "1.8s" }} />
+            <span className="absolute inset-2 rounded-full bg-primary/20 animate-ping" style={{ animationDuration: "1.8s", animationDelay: "0.3s" }} />
+        </span>
+    );
+}
 
 const HeroSection = () => {
-    function Waveform({ active }: { active: boolean }) {
-        const bars = 28;
-        return (
-            <div className="flex items-center gap-0.75 h-10">
-                {Array.from({ length: bars }).map((_, i) => {
-                    const baseH = [20, 40, 60, 80, 50, 30, 70, 90, 45, 65, 35, 85, 55, 25, 75, 95, 40, 60, 30, 80, 50, 70, 35, 55, 45, 65, 25, 75][i % 28];
-                    return (
-                        <div
-                            key={i}
-                            className="rounded-full transition-all"
-                            style={{
-                                width: "3px",
-                                backgroundColor: active ? "#3a6644" : "#d4e2ce",
-                                height: active ? `${baseH}%` : "15%",
-                                animation: active ? `waveBar ${0.6 + (i % 5) * 0.15}s ease-in-out infinite alternate` : "none",
-                                animationDelay: `${(i * 0.04) % 0.6}s`,
-                            }}
-                        />
-                    );
-                })}
-            </div>
-        );
-    }
 
-    function PulseRing() {
-        return (
-            <span className="absolute inset-0 rounded-full">
-                <span className="absolute inset-0 rounded-full bg-primary/30 animate-ping" style={{ animationDuration: "1.8s" }} />
-                <span className="absolute inset-2 rounded-full bg-primary/20 animate-ping" style={{ animationDuration: "1.8s", animationDelay: "0.3s" }} />
-            </span>
-        );
-    }
     return (
         <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 pt-24 pb-16">
             {/* Background orbs */}
@@ -60,7 +62,7 @@ const HeroSection = () => {
             >
                 Talk to your books.
                 <br />
-                <em className="italic" style={{ color: "primary" }}>They answer.</em>
+                <em className="italic" style={{ color: "#3a6644" }}>They answer.</em>
             </h1>
 
             <p className="relative text-center text-muted-foreground max-w-xl mb-12 leading-relaxed" style={{ fontSize: "1.1rem" }}>
@@ -100,3 +102,4 @@ const HeroSection = () => {
 }
 
 export default HeroSection
+
