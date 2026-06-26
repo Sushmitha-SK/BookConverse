@@ -20,7 +20,7 @@ const Testimonials = () => {
                                 {Array.from({ length: t.stars }).map((_, s) => (
                                     <Star key={s} size={14} fill="#3a6644" className="text-primary" />
                                 ))}
-                            </div>
+                            </div>feat: add testimonials section to landing page
                             <p className="text-sm text-foreground leading-relaxed flex-1 italic font-serif">
                                 &ldquo;{t.quote}&rdquo;
                             </p>
