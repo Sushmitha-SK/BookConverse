@@ -1,5 +1,6 @@
 import CTA from '@/components/CTA'
 import Features from '@/components/Features'
+import Footer from '@/components/Footer'
 import HeroSection from '@/components/HeroSection'
 import HowItWorks from '@/components/HowItWorks'
 import Pricing from '@/components/Pricing'
@@ -14,6 +15,7 @@ const Page = () => {
       <Testimonials />
       <Pricing />
       <CTA />
+      <Footer />
     </main>
   )
 }
