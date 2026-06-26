@@ -88,3 +88,27 @@ export const features = [
         desc: "Your reading habits and conversations are yours. End-to-end encrypted and never used to train models.",
     },
 ];
+
+export const testimonials = [
+    {
+        name: "Priya Menon",
+        role: "PhD Candidate, Literature",
+        avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=60&h=60&fit=crop&auto=format",
+        quote: "I spent months trying to understand Derrida. One afternoon with Book Converse and I finally had the language to talk about deconstruction. Remarkable.",
+        stars: 5,
+    },
+    {
+        name: "Marcus Webb",
+        role: "Serial Founder",
+        avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&auto=format",
+        quote: "I read two books a week, but retaining is the hard part. Now I debrief every book out loud — it's like having a study partner who's read everything.",
+        stars: 5,
+    },
+    {
+        name: "Lena Fischer",
+        role: "High School Teacher",
+        avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&h=60&fit=crop&auto=format",
+        quote: "My students were disengaged. I had them converse with 1984 for 20 minutes. The class discussion afterward was the best I've had in a decade.",
+        stars: 5,
+    },
+];
