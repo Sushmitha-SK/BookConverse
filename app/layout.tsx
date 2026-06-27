@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { DM_Mono,DM_Sans, Playfair_Display } from "next/font/google";
+import { DM_Mono, DM_Sans, Playfair_Display } from "next/font/google";
 
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Navbar } from "@/components/Navbar";
+import { Toaster } from "sonner";
 
 const playfairDisplay = Playfair_Display({
   variable: "--font-playfairDisplay",
@@ -45,6 +46,7 @@ export default function RootLayout({
         <body className="min-h-full flex flex-col">
           <Navbar />
           {children}
+          <Toaster />
         </body>
       </html>
     </ClerkProvider>

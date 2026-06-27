@@ -2,7 +2,8 @@
 import { Mic, BookOpen, Headphones, Sparkles, ChevronRight, Volume2, Play, Pause, Star, ArrowRight, Check, Menu, X, MessageSquare, Zap, Globe, Lock } from "lucide-react";
 
 export const navItems = [
-    { label: "Library", href: "/" },
+    { label: "Home", href: "/" },
+    { label: "Library", href: "/library" },
     { label: "Add New", href: "/books/new" },
     { label: "Pricing", href: "/subscriptions" },
 ];
