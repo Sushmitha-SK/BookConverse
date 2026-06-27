@@ -1,20 +1,44 @@
 'use client';
 
-import React from 'react';
-import { Loader2 } from 'lucide-react';
+import { Loader2, BookOpen } from 'lucide-react';
 
 const LoadingOverlay = () => {
     return (
-        <div className="loading-wrapper">
-            <div className="loading-shadow-wrapper bg-white shadow-soft-lg">
-                <div className="loading-shadow">
-                    <Loader2 className="loading-animation w-12 h-12 text-[#663820]" />
-                    <h2 className="loading-title">Synthesizing Your Book</h2>
-                    <p className="text-[#777] text-center max-w-xs">
-                        Please wait while we process your PDF and prepare your interactive literary experience.
+        <div className="fixed inset-0 z-9999 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+
+            <div className="w-full max-w-md rounded-3xl border border-border bg-card p-8 shadow-2xl">
+
+                <div className="flex flex-col items-center text-center">
+
+                    <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
+                        <BookOpen className="h-8 w-8 text-primary" />
+                    </div>
+
+                    <Loader2 className="h-10 w-10 animate-spin text-primary mb-5" />
+
+                    <h2 className="text-2xl font-semibold">
+                        Synthesizing Your Book
+                    </h2>
+
+                    <p className="mt-3 text-sm text-muted-foreground max-w-sm">
+                        Parsing PDF, extracting chapters, generating cover assets,
+                        and preparing your interactive literary experience.
                     </p>
+
+                    <div className="mt-6 w-full">
+                        <div className="h-2 overflow-hidden rounded-full bg-muted">
+                            <div className="h-full w-1/2 animate-pulse rounded-full bg-primary" />
+                        </div>
+                    </div>
+
+                    <p className="mt-4 text-xs text-muted-foreground">
+                        This may take a few moments for larger books.
+                    </p>
+
                 </div>
+
             </div>
+
         </div>
     );
 };
