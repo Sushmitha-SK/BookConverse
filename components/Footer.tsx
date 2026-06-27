@@ -1,4 +1,6 @@
 import { BookOpen } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
 
 const Footer = () => {
     return (
@@ -7,10 +9,10 @@ const Footer = () => {
                 <div className="flex flex-col md:flex-row justify-between gap-10 mb-12">
                     <div className="max-w-xs">
                         <div className="flex items-center gap-2.5 mb-4">
-                            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-                                <BookOpen size={16} className="text-primary-foreground" />
-                            </div>
-                            <span className="font-semibold font-serif">Book Converse</span>
+
+                            <Link href="/" className="flex gap-2 items-center group">
+                                <Image src="/assets/bookconverse-logo.png" alt="Book Converse" width={100} height={100} className={`object-contain transition-all duration-500 h-9 w-auto`} />
+                            </Link>
                         </div>
                         <p className="text-sm text-muted-foreground leading-relaxed">
                             Real-time voice conversations with the books you love. Powered by deep AI understanding.

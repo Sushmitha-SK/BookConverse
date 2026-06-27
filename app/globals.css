@@ -10,6 +10,7 @@
   --card: #ffffff;
   --card-foreground: #141f12;
   --border: rgba(20, 31, 18, 0.1);
+  --input-background: #e4ede0;
 
 }
 
@@ -28,6 +29,9 @@
   --color-card-foreground: var(--card-foreground);
 
   --color-border: var(--border);
+
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
 }
 
 @media (prefers-color-scheme: dark) {
