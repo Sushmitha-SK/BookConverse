@@ -17,9 +17,26 @@ export function Navbar() {
     const pathname = usePathname();
     const { user, isLoaded, isSignedIn } = useUser();
 
-    const backNavbarPages = ["/books/new", "/library", "/subscriptions",];
 
-    const showBackNavbar = backNavbarPages.includes(pathname);
+
+    const backNavbarPages = [
+        "/books/new",
+        "/library",
+        "/subscriptions",
+    ];
+
+    const showBackNavbar =
+        backNavbarPages.includes(pathname) ||
+        pathname.startsWith("/books/");
+
+    const getBackHref = () => {
+        if (pathname.startsWith("/books/")) return "/library";
+        if (pathname === "/books/new") return "/library";
+        if (pathname === "/subscriptions") return "/";
+        return "/";
+    };
+
+    const backHref = getBackHref();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -37,7 +54,14 @@ export function Navbar() {
 
                 <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
                     <div className="flex items-center gap-4">
-                        <Link href="/" className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-black transition-colors">
+                        {/* <Link href="/" className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-black transition-colors">
+                            <ChevronLeft size={20} />
+                            Back
+                        </Link> */}
+                        <Link
+                            href={backHref}
+                            className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-black transition-colors"
+                        >
                             <ChevronLeft size={20} />
                             Back
                         </Link>
