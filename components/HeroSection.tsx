@@ -46,7 +46,7 @@ const HeroSection = () => {
 
     const handleAction = () => {
         if (isSignedIn) {
-            router.push('/library');
+            router.push('/books/new');
             openSignUp();
         }
     };
@@ -91,20 +91,21 @@ const HeroSection = () => {
                     onClick={handleAction}
                     className="flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3.5 rounded-full font-medium hover:opacity-90 transition-opacity text-sm"
                 >
-                    {isSignedIn ? "Go to Library" : "Start for free"} <ArrowRight size={15} />
+                    {isSignedIn ? "Add your book" : "Start for free"} <ArrowRight size={15} />
                 </button>
                 <button
                     onClick={() => setShowVideo(true)}
                     className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors px-6 py-3.5 cursor-pointer"
                 >
-                    <Play size={14} className="text-primary" /> Watch 90-second demo
+                    <Play size={14} className="text-primary" /> Watch 18-second demo
                 </button>
             </div>
 
             <p className="relative mt-6 text-xs text-muted-foreground px-4">No credit card required · 1 book free forever</p>
 
+
             {showVideo && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
                     <div className="relative w-full max-w-4xl bg-black rounded-2xl overflow-hidden shadow-2xl">
                         <button
                             onClick={() => setShowVideo(false)}
@@ -112,15 +113,17 @@ const HeroSection = () => {
                         >
                             <X size={20} />
                         </button>
-                        <div className="aspect-video">
-                            <iframe
-                                className="w-full h-full"
-                                src="https://www.youtube.com/embed/NiwawEe92Co?si=EuoYmeDcBVt1AbGV"
-                                title="Demo Video"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                            />
 
+                        <div className="aspect-video">
+                            <video
+                                className="w-full h-full"
+                                controls
+                                autoPlay
+                                playsInline
+                            >
+                                <source src="/assets/Book-Converse-Demo.mp4" type="video/mp4" />
+                                Your browser does not support the video tag.
+                            </video>
                         </div>
                     </div>
                 </div>
