@@ -5,7 +5,7 @@ export const navItems = [
     { label: "Home", href: "/" },
     { label: "Library", href: "/library" },
     { label: "Add New", href: "/books/new" },
-    { label: "Pricing", href: "/subscriptions" },
+    { label: "Pricing", href: "#pricing" },
 ];
 
 export const books = [
