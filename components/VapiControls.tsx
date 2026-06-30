@@ -1,84 +1,127 @@
 'use client';
 
-import { BookOpen, Mic, MicOff, Loader2 } from "lucide-react";
+import { BookOpen, Clock3, Headphones, Loader2, Mic, MicOff } from "lucide-react";
 import { IBook } from "@/types";
 import Image from "next/image";
 import Transcript from "./Transcript";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { toast } from "sonner";
+import useVapi from "@/hooks/useVapi";
 
 const VapiControls = ({ book }: { book: IBook }) => {
-    const isActive = true;
-    const status = 'idle'; 
-    const isConnecting = status === 'idle';
+    const { status, isActive, messages, currentMessage, currentUserMessage, duration, start, stop, clearError, limitError, isBillingError, maxDurationSeconds } = useVapi(book)
 
+    const router = useRouter();
+
+    useEffect(() => {
+        if (limitError) {
+            toast.error(limitError);
+            if (isBillingError) {
+                router.push("/subscriptions");
+            } else {
+                router.push("/");
+            }
+            clearError();
+        }
+    }, [isBillingError, limitError, router, clearError]);
+
+    const formatDuration = (seconds: number) => {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${mins}:${secs.toString().padStart(2, '0')}`;
+    };
+
+    const getStatusDisplay = () => {
+        switch (status) {
+            case 'connecting': return { label: 'Connecting...', color: 'vapi-status-dot-connecting' };
+            case 'starting': return { label: 'Starting...', color: 'vapi-status-dot-starting' };
+            case 'listening': return { label: 'Listening', color: 'vapi-status-dot-listening' };
+            case 'thinking': return { label: 'Thinking...', color: 'vapi-status-dot-thinking' };
+            case 'speaking': return { label: 'Speaking', color: 'vapi-status-dot-speaking' };
+            default: return { label: 'Ready', color: 'vapi-status-dot-ready' };
+        }
+    };
+
+    const statusDisplay = getStatusDisplay();
     return (
-        <div className="max-w-4xl mx-auto p-4 md:p-8 space-y-8">
-            <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 flex items-start gap-6">
-                <div className="relative shrink-0">
+        <div className="w-full max-w-4xl mx-auto p-2 sm:p-4 md:p-8 space-y-6">
+            <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-xl shadow-slate-200/50 border border-slate-100 flex flex-col sm:flex-row items-center gap-6">
+
+                <div className="relative shrink-0 shadow-md rounded-xl overflow-hidden">
                     <Image
                         src={book.coverURL || "/images/book-placeholder.png"}
                         alt={book.title}
-                        width={120}
-                        height={180}
-                        className="rounded-lg shadow-md object-cover transition-transform hover:scale-105"
-                    />
+                        width={100}
+                        height={150}
+                        className="rounded-lg shadow-md object-cover sm:w-30 sm:h-45"
+                        priority />
                 </div>
 
-                <div className="flex-1 flex flex-col gap-4">
+                {/* Content Area */}
+                <div className="flex-1 w-full flex flex-col items-center sm:items-start text-center sm:text-left gap-4">
                     <div>
-                        <span className="text-[10px] font-bold text-primary uppercase tracking-widest bg-emerald-50 px-2 py-0.5 rounded-full">
-                            Fiction
-                        </span>
-                        <h1 className="text-2xl font-serif font-bold text-slate-900 mt-1">{book.title}</h1>
-                        <p className="text-slate-500 font-medium">{book.author}</p>
+                        <h1 className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-slate-900 font-serif line-clamp-2">{book.title}</h1>
+                        <p className="text-sm sm:text-base text-slate-500 mt-1 font-medium italic">by {book.author}</p>
                     </div>
 
-                    <div className="flex items-center gap-6 text-sm text-slate-500">
-                        <div className="flex items-center gap-1.5">
-                            <span className={`w-2 h-2 rounded-full ${isActive ? 'bg-emerald-500 animate-pulse' : 'bg-slate-300'}`} />
-                            {isActive ? "Live" : "Ready"}
+                    <div className="flex flex-wrap justify-center sm:justify-start gap-2 sm:gap-4 text-xs sm:text-sm">
+                        <div className="flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-full border border-slate-100">
+                            <span className={`size-2 rounded-full ${isActive ? 'bg-emerald-500 animate-pulse' : 'bg-slate-400'}`} />
+                            <span className="font-semibold text-slate-600">{statusDisplay.label}</span>
                         </div>
-                        <span className="flex items-center gap-1.5">🎧 {book.persona || "Rachel"}</span>
-                        <span>0:00 / 60:00</span>
+                        <div className="flex items-center gap-2 text-slate-600 px-2 rounded-full bg-slate-50 capitalize ">
+                            <Headphones className="size-4" /> {book.persona || "Rachel"}
+                        </div>
+                        <div className="flex items-center gap-2 text-slate-600 px-2 bg-slate-50 py-1.5 rounded-full border border-slate-100">
+                            <Clock3 className="size-4" />
+                            <span className="font-mono font-medium">
+                                {formatDuration(duration)} / {formatDuration(maxDurationSeconds)}
+                            </span>
+                        </div>
                     </div>
                 </div>
 
-                {/* Control Button */}
-                <div className="relative group">
-                    {isActive && (
-                        <div className="absolute inset-0 rounded-full bg-primary animate-ping opacity-20" />
+
+
+                {/* Primary Action Button */}
+                <div className="relative group shrink-0">
+                    {isActive && (status === 'speaking' || status === 'thinking') && (
+                        <div className="absolute inset-0 rounded-full bg-rose-500 animate-ping opacity-20" />
                     )}
+
                     <button
-                        disabled={isConnecting}
-                        className={`relative size-16 flex items-center justify-center rounded-full shadow-lg transition-all duration-300 ${isActive
-                            ? 'bg-primary/50 hover:bg-primary text-white'
-                            : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
-                            } disabled:opacity-50`}
+                        onClick={isActive ? stop : start}
+                        disabled={status === 'connecting'}
+                        className={`group relative size-14 sm:size-16 flex items-center justify-center rounded-full transition-all duration-300 shadow-sm ${isActive
+                            ? 'bg-rose-500 hover:bg-rose-600 shadow-rose-200 animate-pulse'
+                            : 'bg-primary hover:bg-primary/90 text-white'
+                            }`}
                     >
-                        {isConnecting ? (
-                            <Loader2 className="size-7 animate-spin" />
-                        ) : isActive ? (
-                            <Mic className="size-7" />
+                        {status === 'connecting' ? (
+                            <Loader2 className="size-6 sm:size-7 text-white animate-spin" />
                         ) : (
-                            <MicOff className="size-7" />
+                            isActive ? <Mic className="size-6 sm:size-7 text-white" /> : <MicOff className="size-6 sm:size-7 text-white" />
                         )}
                     </button>
                 </div>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
-                <div className="p-4 border-b border-slate-100 bg-slate-50/50 flex items-center gap-2">
-                    <BookOpen className="size-4 text-slate-400" />
-                    <span className="text-xs font-semibold text-slate-500 uppercase">Live Transcript</span>
+            {/* Transcript Area */}
+            <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+                <div className="px-4 sm:px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                        <BookOpen className="size-4 text-indigo-500" />
+                        <span className="text-[10px] sm:text-xs font-bold tracking-wider text-slate-400 uppercase">Live Conversation</span>
+                    </div>
                 </div>
-                <div className="p-6">
+
+
+                <div className="p-4 sm:p-6 bg-slate-50/50">
                     <Transcript
-                        messages={[
-                            { role: "assistant", content: "Hello! I'm Daniel, your reading companion." },
-                            { role: "user", content: "Can you summarize the first chapter?" },
-                            { role: "assistant", content: "Certainly! The first chapter introduces the main themes." },
-                        ]}
-                        currentMessage="The story begins with an unexpected encounter..."
-                        currentUserMessage="What happens next?"
+                        messages={messages}
+                        currentMessage={currentMessage}
+                        currentUserMessage={currentUserMessage}
                     />
                 </div>
             </div>
