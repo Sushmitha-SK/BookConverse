@@ -1,17 +1,21 @@
-import { ArrowRight, Mic, Play, Sparkles } from 'lucide-react'
-function Waveform({ active }: { active: boolean }) {
+'use client'
+import { useClerk, useUser } from '@clerk/nextjs';
+import { ArrowRight, Mic, Play, Sparkles, X } from 'lucide-react'
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+
+function Waveform({ active, className }: { active: boolean; className?: string }) {
     const bars = 28;
     return (
-        <div className="flex items-center gap-0.75 h-10">
+        <div className={`flex items-center gap-0.75 h-10 ${className}`}>
             {Array.from({ length: bars }).map((_, i) => {
                 const baseH = [20, 40, 60, 80, 50, 30, 70, 90, 45, 65, 35, 85, 55, 25, 75, 95, 40, 60, 30, 80, 50, 70, 35, 55, 45, 65, 25, 75][i % 28];
                 return (
                     <div
                         key={i}
-                        className="rounded-full transition-all"
+                        className={`rounded-full transition-all ${active ? "bg-primary" : "bg-secondary"}`}
                         style={{
                             width: "3px",
-                            backgroundColor: active ? "#3a6644" : "#d4e2ce",
                             height: active ? `${baseH}%` : "15%",
                             animation: active ? `waveBar ${0.6 + (i % 5) * 0.15}s ease-in-out infinite alternate` : "none",
                             animationDelay: `${(i * 0.04) % 0.6}s`,
@@ -34,25 +38,29 @@ function PulseRing() {
 
 const HeroSection = () => {
 
+    const { isSignedIn } = useUser();
+    const { openSignUp } = useClerk();
+    const router = useRouter();
+
+    const [showVideo, setShowVideo] = useState(false);
+
+    const handleAction = () => {
+        if (isSignedIn) {
+            router.push('/library');
+            openSignUp();
+        }
+    };
+
     return (
-        <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 pt-24 pb-16">
-            {/* Background orbs */}
+        <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 pt-24 pb-16 text-center">
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-10" style={{ background: "radial-gradient(circle, #3a6644, transparent 70%)", animation: "float 8s ease-in-out infinite" }} />
-                <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-8" style={{ background: "radial-gradient(circle, #6b8cba, transparent 70%)", animation: "float 10s ease-in-out infinite", animationDelay: "3s" }} />
-                <svg className="absolute inset-0 w-full h-full opacity-[0.03]" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-                            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#1a1208" strokeWidth="1" />
-                        </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#grid)" />
-                </svg>
+                <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-10 bg-[radial-gradient(circle,var(--color-primary),transparent_70%)] animate-[float_8s_ease-in-out_infinite]" />
+                <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-8 bg-[radial-gradient(circle,#6b8cba,transparent_70%)] animate-[float_10s_ease-in-out_infinite_3s]" />
             </div>
 
-            <div className="relative mb-8 flex items-center gap-2 bg-muted px-4 py-1.5 rounded-full border border-border">
+            <div className="relative mb-8 flex items-center gap-2 bg-secondary px-4 py-1.5 rounded-full border border-border">
                 <Sparkles size={13} className="text-primary" />
-                <span className="text-xs text-muted-foreground font-medium tracking-wide uppercase">Now with voice cloning for authors</span>
+                <span className="text-xs text-muted-foreground font-medium tracking-wide uppercase">Now with voice cloning</span>
             </div>
 
             <h1 className="relative text-center font-bold leading-[1.1] mb-6 max-w-4xl"
@@ -62,41 +70,63 @@ const HeroSection = () => {
                 <em className="italic" style={{ color: "#3a6644" }}>They answer.</em>
             </h1>
 
-            <p className="relative text-center text-muted-foreground max-w-xl mb-12 leading-relaxed" style={{ fontSize: "1.1rem" }}>
+            <p className="relative text-muted-foreground max-w-xl mb-12 leading-relaxed px-4" style={{ fontSize: "1.1rem" }}>
                 Book Converse transforms any book into a real-time voice conversation partner — powered by AI that truly understands what you are reading.
             </p>
 
-            <div className="relative flex flex-col items-center gap-6 mb-12">
-                <div className="flex items-center gap-6 bg-card border border-border rounded-2xl px-8 py-5 shadow-2xl">
-                    <Waveform active={true} />
-                    <button
-
-                        className="relative w-14 h-14 rounded-full flex items-center justify-center transition-all duration-200"
-                        style={{ backgroundColor: "#3a6644" }}
-                    >
+            <div className="relative flex flex-col items-center gap-6 mb-12 w-full">
+                <div className="flex items-center gap-6 bg-card border border-border rounded-2xl px-6 py-4 shadow-2xl">
+                    <Waveform active={true} className="hidden sm:flex" />
+                    <button className="relative w-14 h-14 rounded-full flex items-center justify-center transition-all duration-200 bg-primary">
                         <PulseRing />
-                        <Mic size={22} className={"text-primary-foreground"} />
+                        <Mic size={22} className="text-primary-foreground" />
                     </button>
-                    <Waveform active={true} />
+                    <Waveform active={true} className="hidden sm:flex" />
                 </div>
-                <p className="text-xs text-muted-foreground">
-                    {"Listening... ask your book anything"}
-                </p>
+                <p className="text-xs text-muted-foreground">{"Listening... ask your book anything"}</p>
             </div>
 
-            <div className="relative flex flex-col sm:flex-row items-center gap-4">
-                <button className="flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3.5 rounded-full font-medium hover:bg-accent transition-colors text-sm">
-                    Start for free <ArrowRight size={15} />
+            <div className="relative flex flex-wrap justify-center items-center gap-4">
+                <button
+                    onClick={handleAction}
+                    className="flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3.5 rounded-full font-medium hover:opacity-90 transition-opacity text-sm"
+                >
+                    {isSignedIn ? "Go to Library" : "Start for free"} <ArrowRight size={15} />
                 </button>
-                <button className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors px-6 py-3.5">
+                <button
+                    onClick={() => setShowVideo(true)}
+                    className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors px-6 py-3.5 cursor-pointer"
+                >
                     <Play size={14} className="text-primary" /> Watch 90-second demo
                 </button>
             </div>
-            <p className="relative mt-6 text-xs text-muted-foreground">No credit card required · 1 book free forever</p>
-        </section>
 
+            <p className="relative mt-6 text-xs text-muted-foreground px-4">No credit card required · 1 book free forever</p>
+
+            {showVideo && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4">
+                    <div className="relative w-full max-w-4xl bg-black rounded-2xl overflow-hidden shadow-2xl">
+                        <button
+                            onClick={() => setShowVideo(false)}
+                            className="absolute top-4 right-4 z-10 text-white bg-black/50 p-2 rounded-full hover:bg-black/70"
+                        >
+                            <X size={20} />
+                        </button>
+                        <div className="aspect-video">
+                            <iframe
+                                className="w-full h-full"
+                                src="https://www.youtube.com/embed/NiwawEe92Co?si=EuoYmeDcBVt1AbGV"
+                                title="Demo Video"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            />
+
+                        </div>
+                    </div>
+                </div>
+            )}
+        </section>
     )
 }
 
 export default HeroSection
-
