@@ -24,13 +24,10 @@
   --font-sans: var(--font-dmSans);
   --font-mono: var(--font-dmMono);
   --font-serif: var(--font-playfairDisplay);
-
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
-
   --color-border: var(--border);
-
-  --color-input: var(--input);
+  --color-input: var(--input-background);
   --color-input-background: var(--input-background);
 }
 
@@ -51,4 +48,29 @@ body {
   font-family: var(--font-dmSans), sans-serif;
   background: var(--background);
   color: var(--foreground);
+}
+
+
+.vapi-status-dot {
+  @apply inline-block w-3 h-3 rounded-full;
+}
+
+.vapi-status-dot-ready {
+  @apply bg-gray-400;
+}
+
+.vapi-status-dot-connecting {
+  @apply bg-yellow-500 animate-pulse;
+}
+
+.vapi-status-dot-listening {
+  @apply bg-green-500 animate-pulse;
+}
+
+.vapi-status-dot-thinking {
+  @apply bg-yellow-500 animate-pulse;
+}
+
+.vapi-status-dot-speaking {
+  @apply bg-green-500 animate-pulse;
 }
