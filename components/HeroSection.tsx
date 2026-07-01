@@ -52,7 +52,7 @@ const HeroSection = () => {
     };
 
     return (
-        <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 pt-24 pb-16 text-center">
+        <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 pt-24 pb-16 text-center">
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
                 <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full opacity-10 bg-[radial-gradient(circle,var(--color-primary),transparent_70%)] animate-[float_8s_ease-in-out_infinite]" />
                 <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full opacity-8 bg-[radial-gradient(circle,#6b8cba,transparent_70%)] animate-[float_10s_ease-in-out_infinite_3s]" />
@@ -60,17 +60,16 @@ const HeroSection = () => {
 
             <div className="relative mb-8 flex items-center gap-2 bg-secondary px-4 py-1.5 rounded-full border border-border">
                 <Sparkles size={13} className="text-primary" />
-                <span className="text-xs text-muted-foreground font-medium tracking-wide uppercase">Now with voice cloning</span>
+                <span className="text-xs text-muted-foreground font-medium tracking-wide uppercase">Books that talk back</span>
             </div>
 
-            <h1 className="relative text-center font-bold leading-[1.1] mb-6 max-w-4xl"
-                style={{ fontFamily: 'font-serif', fontSize: "clamp(2.8rem, 7vw, 5.5rem)" }}>
+            <h1 className="relative text-center font-bold leading-[1.1] mb-6 max-w-4xl" style={{ fontFamily: 'font-serif', fontSize: "clamp(2.8rem, 7vw, 5.5rem)" }}>
                 Talk to your books.
                 <br />
-                <em className="italic" style={{ color: "#3a6644" }}>They answer.</em>
+                <em className="italic text-forest">They answer.</em>
             </h1>
 
-            <p className="relative text-muted-foreground max-w-xl mb-12 leading-relaxed px-4" style={{ fontSize: "1.1rem" }}>
+            <p className="relative text-muted-foreground max-w-xl mb-12 leading-relaxed px-4 " >
                 Book Converse transforms any book into a real-time voice conversation partner — powered by AI that truly understands what you are reading.
             </p>
 
@@ -83,7 +82,7 @@ const HeroSection = () => {
                     </button>
                     <Waveform active={true} className="hidden sm:flex" />
                 </div>
-                <p className="text-xs text-muted-foreground">{"Listening... ask your book anything"}</p>
+                <p className="text-xs text-muted-foreground">{"Start talking. Your book already knows the answer."}</p>
             </div>
 
             <div className="relative flex flex-wrap justify-center items-center gap-4">
@@ -104,31 +103,33 @@ const HeroSection = () => {
             <p className="relative mt-6 text-xs text-muted-foreground px-4">No credit card required · 1 book free forever</p>
 
 
-            {showVideo && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-                    <div className="relative w-full max-w-4xl bg-black rounded-2xl overflow-hidden shadow-2xl">
-                        <button
-                            onClick={() => setShowVideo(false)}
-                            className="absolute top-4 right-4 z-10 text-white bg-black/50 p-2 rounded-full hover:bg-black/70"
-                        >
-                            <X size={20} />
-                        </button>
-
-                        <div className="aspect-video">
-                            <video
-                                className="w-full h-full"
-                                controls
-                                autoPlay
-                                playsInline
+            {
+                showVideo && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+                        <div className="relative w-full max-w-4xl bg-black rounded-2xl overflow-hidden shadow-2xl">
+                            <button
+                                onClick={() => setShowVideo(false)}
+                                className="absolute top-4 right-4 z-10 text-white bg-black/50 p-2 rounded-full hover:bg-black/70"
                             >
-                                <source src="/assets/Book-Converse-Demo.mp4" type="video/mp4" />
-                                Your browser does not support the video tag.
-                            </video>
+                                <X size={20} />
+                            </button>
+
+                            <div className="aspect-video">
+                                <video
+                                    className="w-full h-full"
+                                    controls
+                                    autoPlay
+                                    playsInline
+                                >
+                                    <source src="/assets/Book-Converse-Demo.mp4" type="video/mp4" />
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
-        </section>
+                )
+            }
+        </section >
     )
 }
 

@@ -50,7 +50,7 @@ export function Navbar() {
 
                 <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
                     <div className="flex items-center gap-4">
-                        <Link
+                        <Link aria-label="Back Navigation"
                             href={backHref}
                             className="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-black transition-colors"
                         >
@@ -94,9 +94,11 @@ export function Navbar() {
     return (
         <>
             <header className="z-50">
-                <nav className={`fixed flex items-center justify-between left-1/2 -translate-x-1/2 transition-all duration-500 p-4 ${scrolled ? "md:w-5xl w-[calc(100vw-14px)] bg-white/60 backdrop-blur-2xl rounded-full mt-4 pl-6 shadow" : "md:px-16 lg:px-24 xl:px-32 w-full"}`}>
-                    <Link href="/" className="flex gap-2 items-center group">
-                        <Image src="/assets/bookconverse-logo.png" alt="Book Converse" width={100} height={100} className={`object-contain transition-all duration-500 h-9 w-auto`} />
+                <nav aria-label="Primary Navigation" className={`fixed flex items-center justify-between left-1/2 -translate-x-1/2 transition-all duration-500 p-4 ${scrolled ? "md:w-5xl w-[calc(100vw-14px)] bg-white/60 backdrop-blur-2xl rounded-full mt-4 pl-6 shadow" : "md:px-16 lg:px-24 xl:px-32 w-full"}`}>
+                    <Link aria-label="Book Converse Home" href="/" className="flex gap-2 items-center group">
+                        <Image priority fetchPriority="high" src="/assets/bookconverse-logo.png" alt="Book Converse"
+                            width={100} height={100} className={`object-contain transition-all duration-500 h-9 w-auto`} />
+
                     </Link>
 
                     <div className="hidden md:flex items-center gap-6 md:gap-10 text-sm">

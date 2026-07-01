@@ -4,27 +4,49 @@ import Image from 'next/image'
 
 const Testimonials = () => {
     return (
-        <section className="py-24 px-6">
+        <section
+            className="py-24 px-6"
+            aria-labelledby="testimonials-heading"
+        >
             <div className="max-w-6xl mx-auto">
-                <div className="text-center mb-16">
-                    <p className="text-xs text-primary uppercase tracking-widest font-medium mb-3">Reader stories</p>
-                    <h2 className="font-bold font-serif text-[clamp(2rem,5vw,3.2rem)]" >
+                <header className="text-center mb-16">
+                    <p className="text-xs text-primary uppercase tracking-widest font-medium mb-3">
+                        Reader stories
+                    </p>
+                    <h2
+                        id="testimonials-heading"
+                        className="font-bold font-serif text-[clamp(2rem,5vw,3.2rem)]"
+                    >
                         What they said after their first conversation
                     </h2>
-                </div>
+                </header>
 
-                <div className="grid md:grid-cols-3 gap-6">
+                <ul className="grid md:grid-cols-3 gap-6">
                     {testimonials.map((t, i) => (
-                        <div key={i} className="bg-card border border-border rounded-2xl p-6 flex flex-col gap-5">
-                            <div className="flex gap-0.5">
+                        <li
+                            key={i}
+                            className="bg-card border border-border rounded-2xl p-6 flex flex-col gap-5 list-none"
+                        >
+                            <div
+                                className="flex gap-0.5"
+                                aria-label={`Rated ${t.stars} out of 5 stars`}
+                            >
                                 {Array.from({ length: t.stars }).map((_, s) => (
-                                    <Star key={s} size={14} fill="#3a6644" className="text-primary" />
+                                    <Star
+                                        key={s}
+                                        size={14}
+                                        fill="#3a6644"
+                                        className="text-primary"
+                                        aria-hidden="true"
+                                    />
                                 ))}
-                            </div>feat: add testimonials section to landing page
-                            <p className="text-sm text-foreground leading-relaxed flex-1 italic font-serif">
+                            </div>
+
+                            <blockquote className="text-sm text-foreground leading-relaxed flex-1 italic font-serif">
                                 &ldquo;{t.quote}&rdquo;
-                            </p>
-                            <div className="flex items-center gap-3 pt-2 border-t border-border">
+                            </blockquote>
+
+                            <footer className="flex items-center gap-3 pt-2 border-t border-border">
                                 <Image
                                     src={t.avatar}
                                     alt={t.name}
@@ -36,10 +58,10 @@ const Testimonials = () => {
                                     <p className="text-sm font-medium text-foreground">{t.name}</p>
                                     <p className="text-xs text-muted-foreground">{t.role}</p>
                                 </div>
-                            </div>
-                        </div>
+                            </footer>
+                        </li>
                     ))}
-                </div>
+                </ul>
             </div>
         </section>
     )
