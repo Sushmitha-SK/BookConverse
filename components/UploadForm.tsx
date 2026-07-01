@@ -13,7 +13,7 @@ import { UploadSchema } from '@/lib/zod';
 import LoadingOverlay from './LoadingOverlay';
 import FileUploader from './FileUploader';
 import VoiceSelector from './VoiceSelector';
-import { useAuth } from '@clerk/nextjs';
+import { SignInButton, useAuth } from '@clerk/nextjs';
 import { useRouter } from 'next/navigation';
 import { checkBookExists, createBook, saveBookSegments } from '@/lib/actions/book.actions';
 import { toast } from 'sonner';
@@ -25,6 +25,35 @@ const UploadForm = () => {
     const [isMounted, setIsMounted] = useState(false);
     const { userId } = useAuth()
     const router = useRouter()
+
+    if (!userId) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-[70vh] px-6 text-center">
+                <div className="mb-8 p-4 bg-primary/5 rounded-full">
+                    <Upload className="h-10 w-10 text-primary" strokeWidth={1.5} />
+                </div>
+
+                <div className="max-w-xl space-y-4">
+                    <h1 className="text-4xl md:text-5xl font-serif font-bold tracking-tight">
+                        Start your library.
+                    </h1>
+                    <p className="text-xl text-muted-foreground">
+                        Upload your documents to create an interactive, AI-narrated experience.
+                        Sign in to get started.
+                    </p>
+                </div>
+
+                <div className="mt-12">
+                    <SignInButton mode="modal">
+                        <Button size="lg" className="h-12 px-8 text-base rounded-full shadow-sm hover:shadow-md transition-all">
+                            Sign In to Upload
+                        </Button>
+                    </SignInButton>
+                </div>
+            </div>
+        );
+    }
+
 
     useEffect(() => {
         setIsMounted(true);

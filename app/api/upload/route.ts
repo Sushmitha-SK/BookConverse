@@ -29,8 +29,6 @@ export async function POST(request: Request) {
 
                 const payload = tokenPayload ? JSON.parse(tokenPayload) : null
                 const userId = payload?.userId;
-
-                // TODO: PostHog
             }
         });
 
