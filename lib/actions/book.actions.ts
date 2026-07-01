@@ -11,33 +11,50 @@ export const getAllBooks = async (search?: string) => {
     try {
         await connectToDatabase();
 
-        let query = {};
+        const { auth } = await import("@clerk/nextjs/server");
+        const { userId } = await auth();
+
+        if (!userId) {
+            return {
+                success: false,
+                error: "Unauthorized",
+            };
+        }
+
+        let query: any = {
+            clerkId: userId,
+        };
 
         if (search) {
             const escapedSearch = escapeRegex(search);
             const regex = new RegExp(escapedSearch, 'i');
+
             query = {
+                clerkId: userId,
                 $or: [
                     { title: { $regex: regex } },
                     { author: { $regex: regex } },
-                ]
+                ],
             };
         }
 
-        const books = await Book.find(query).sort({ createdAt: -1 }).lean();
+        const books = await Book.find(query)
+            .sort({ createdAt: -1 })
+            .lean();
 
         return {
             success: true,
-            data: serializeData(books)
-        }
+            data: serializeData(books),
+        };
     } catch (e) {
-        console.error('Error connecting to database', e);
-        return {
-            success: false, error: e
-        }
-    }
-}
+        console.error("Error connecting to database", e);
 
+        return {
+            success: false,
+            error: e,
+        };
+    }
+};
 export const checkBookExists = async (title: string) => {
     try {
         await connectToDatabase();
