@@ -10,6 +10,7 @@ const playfairDisplay = Playfair_Display({
   variable: "--font-playfairDisplay",
   subsets: ["latin"],
   weight: ['400', '600', '700', '900'],
+  display: "swap",
 });
 
 const dmSans = DM_Sans({
