@@ -47,6 +47,7 @@ const HeroSection = () => {
     const handleAction = () => {
         if (isSignedIn) {
             router.push('/books/new');
+        } else {
             openSignUp();
         }
     };
@@ -63,7 +64,7 @@ const HeroSection = () => {
                 <span className="text-xs text-muted-foreground font-medium tracking-wide uppercase">Books that talk back</span>
             </div>
 
-            <h1 className="relative text-center font-bold leading-[1.1] mb-6 max-w-4xl" style={{ fontFamily: 'font-serif', fontSize: "clamp(2.8rem, 7vw, 5.5rem)" }}>
+            <h1 className="relative text-center font-bold leading-[1.1] mb-6 max-w-4xl font-serif text-[clamp(2.2rem,5vw,4.5rem)]">
                 Talk to your books.
                 <br />
                 <em className="italic text-forest">They answer.</em>
