@@ -2,28 +2,31 @@ import { steps } from '@/app/data/data'
 
 const HowItWorks = () => {
     return (
-        <section id="how-it-works" className="py-24 px-6">
+        <section id="how-it-works" className="py-24 px-6" aria-labelledby="how-it-works-heading">
             <div className="max-w-5xl mx-auto">
                 <div className="text-center mb-16">
                     <p className="text-xs text-primary uppercase tracking-widest font-medium mb-3">Simple by design</p>
-                    <h2 className="font-bold font-serif text-[clamp(2rem,5vw,3.2rem)]">
+                    <h2 id="how-it-works-heading" className="font-bold font-serif text-[clamp(2rem,5vw,3.2rem)] leading-tight">
                         Three steps to your first conversation
                     </h2>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-8">
+                <div className="grid md:grid-cols-3 gap-12 md:gap-8 justify-items-center">
                     {steps.map((step, i) => (
-                        <div key={i} className="relative">
-                            {i < steps.length - 1 && (
-                                <div className="hidden md:block absolute top-8 left-full w-full h-px"
-                                    style={{ background: "linear-gradient(to right, rgba(232,164,56,0.4), transparent)" }} />
-                            )}
-                            <div className="flex flex-col gap-4">
-                                <span className="font-mono text-4xl font-bold" style={{ color: "rgba(232,164,56,0.25)" }}>{step.num}</span>
-                                <h3 className="text-xl font-semibold font-serif" >{step.title}</h3>
-                                <p className="text-muted-foreground text-sm leading-relaxed">{step.desc}</p>
-                            </div>
-                        </div>
+                        <article key={i} className="flex flex-col items-center md:items-start text-center md:text-left">
+                            <span
+                                className="font-mono text-5xl font-semibold text-[#E8A43840]"
+                                aria-hidden="true"
+                            >
+                                {step.num}
+                            </span>
+                            <h3 className="text-xl font-semibold font-serif my-3">
+                                <span className="sr-only">Step {step.num}:</span> {step.title}
+                            </h3>
+                            <p className="text-foreground/90 text-base leading-relaxed max-w-70">
+                                {step.desc}
+                            </p>
+                        </article>
                     ))}
                 </div>
             </div>
