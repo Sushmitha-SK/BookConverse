@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { DM_Mono, DM_Sans, Playfair_Display } from "next/font/google";
-
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Navbar } from "@/components/Navbar";

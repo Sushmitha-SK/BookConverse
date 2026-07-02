@@ -5,6 +5,12 @@ import { BookOpenText, Plus } from "lucide-react";
 import Link from "next/link";
 import { SignInButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Your Personal Library | Manage Your Collection",
+    description: "Browse and manage your personal book collection.",
+};
 
 const Library = async ({ searchParams }: { searchParams: Promise<{ query?: string }> }) => {
     const { userId } = await auth();
@@ -14,13 +20,13 @@ const Library = async ({ searchParams }: { searchParams: Promise<{ query?: strin
 
     if (!userId) {
         return (
-            <main className="min-h-[70vh] flex flex-col items-center justify-center text-center px-6">
-                <div className="mb-8 p-4 bg-primary/5 rounded-full">
+            <main className="min-h-[70vh] flex flex-col items-center justify-center text-center px-6" aria-labelledby="library-heading">
+                <div className="mb-8 p-4 bg-primary/5 rounded-full" aria-hidden="true">
                     <BookOpenText className="h-10 w-10 text-primary" strokeWidth={1.5} />
                 </div>
 
                 <div className="max-w-md space-y-4">
-                    <h1 className="text-4xl font-serif font-bold tracking-tight">
+                    <h1 id="library-heading" className="text-4xl font-serif font-bold tracking-tight">
                         Your personal library
                     </h1>
                     <p className="text-lg text-muted-foreground leading-relaxed">
@@ -30,7 +36,10 @@ const Library = async ({ searchParams }: { searchParams: Promise<{ query?: strin
 
                 <div className="mt-10">
                     <SignInButton mode="modal">
-                        <button className="bg-primary text-primary-foreground px-8 py-3 rounded-full font-semibold shadow-sm hover:shadow-md transition-all">
+                        <button
+                            className="bg-primary text-primary-foreground px-8 py-3 rounded-full font-semibold shadow-sm hover:shadow-md transition-all focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                            aria-label="Sign in to your library"
+                        >
                             Sign In to Library
                         </button>
                     </SignInButton>
@@ -40,9 +49,8 @@ const Library = async ({ searchParams }: { searchParams: Promise<{ query?: strin
     }
 
     return (
-        <main className="wrapper container min-h-screen py-10">
-
-            <div className="max-w-7xl mx-auto px-6">
+        <main className="wrapper container min-h-screen py-10 px-4 md:px-6">
+            <header className="max-w-7xl mx-auto">
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 border-b border-border/50 pb-8">
                     <div>
                         <p className="text-primary uppercase tracking-[0.25em] text-xs font-semibold mb-3">
@@ -56,22 +64,23 @@ const Library = async ({ searchParams }: { searchParams: Promise<{ query?: strin
                         </p>
                     </div>
 
-                    <div className="w-full md:w-auto">
+                    <div className="w-full md:w-auto" role="search">
                         <Search />
                     </div>
                 </div>
+            </header>
 
+            <section aria-label="Book collection" className="max-w-7xl mx-auto">
                 {books.length > 0 ? (
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-8">
+                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 md:gap-8">
                         {books.map((book) => (
                             <BookCard key={book._id} {...book} />
                         ))}
                     </div>
                 ) : (
-
                     <div className="flex flex-col items-center justify-center py-20 text-center animate-in fade-in duration-500">
                         <div className="space-y-4 mb-8">
-                            <h3 className="text-xl font-semibold text-foreground">No books in your collection</h3>
+                            <h2 className="text-xl font-semibold text-foreground">No books in your collection</h2>
                             <p className="text-muted-foreground italic max-w-sm">
                                 It looks like your library is empty. Start your journey by adding your first book.
                             </p>
@@ -79,17 +88,15 @@ const Library = async ({ searchParams }: { searchParams: Promise<{ query?: strin
 
                         <Link
                             href="/books/new"
-                            className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-primary-foreground font-semibold shadow-lg
-                             hover:shadow-xl transition-all duration-200">
-                            <Plus className="size-5" />
+                            className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-primary-foreground font-normal shadow-lg hover:shadow-xl transition-all duration-200 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                            aria-label="Add a new book to your library"
+                        >
+                            <Plus className="size-5" aria-hidden="true" />
                             <span>Add New Book</span>
                         </Link>
                     </div>
-
                 )}
-            </div>
-
-
+            </section>
         </main>
     )
 }
