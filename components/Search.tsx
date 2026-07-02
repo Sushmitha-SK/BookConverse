@@ -33,14 +33,20 @@ const Search = () => {
     };
 
     return (
-        <div className="relative group w-full md:w-80">
+        <form
+            role="search"
+            className="relative group w-full md:w-80"
+            onSubmit={(e) => e.preventDefault()}
+        >
             <SearchIcon
                 size={18}
                 className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors"
+                aria-hidden="true"
             />
 
             <Input
                 type="text"
+                aria-label="Search books"
                 placeholder="Search books..."
                 className="w-full h-12 bg-secondary/50 border-border rounded-2xl pl-12 pr-12 text-base focus:bg-background focus:ring-2 focus:ring-primary/20 transition-all shadow-sm"
                 value={query}
@@ -49,14 +55,15 @@ const Search = () => {
 
             {query && (
                 <button
+                    type="button"
                     onClick={handleClear}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors p-1"
                     aria-label="Clear search"
                 >
-                    <X size={18} />
+                    <X size={18} aria-hidden="true" />
                 </button>
             )}
-        </div>
+        </form>
     );
 };
 

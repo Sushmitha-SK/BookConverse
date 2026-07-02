@@ -1,5 +1,5 @@
 
-import { Mic, BookOpen, Headphones, Sparkles, ChevronRight, Volume2, Play, Pause, Star, ArrowRight, Check, Menu, X, MessageSquare, Zap, Globe, Lock } from "lucide-react";
+import { Mic, Sparkles, MessageSquare, Zap, Globe, Lock, Volume2 } from "lucide-react";
 
 export const navItems = [
     { label: "Home", href: "/" },
@@ -8,36 +8,6 @@ export const navItems = [
     { label: "Pricing", href: "#pricing" },
 ];
 
-export const books = [
-    {
-        title: "Thinking, Fast and Slow",
-        author: "Daniel Kahneman",
-        genre: "Psychology",
-        cover: "https://images.unsplash.com/photo-1532012197267-da84d127e765?w=120&h=180&fit=crop&auto=format",
-        question: "Why do we make irrational decisions?",
-    },
-    {
-        title: "Sapiens",
-        author: "Yuval Noah Harari",
-        genre: "History",
-        cover: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=120&h=180&fit=crop&auto=format",
-        question: "What makes Homo sapiens unique?",
-    },
-    {
-        title: "The Great Gatsby",
-        author: "F. Scott Fitzgerald",
-        genre: "Fiction",
-        cover: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=120&h=180&fit=crop&auto=format",
-        question: "What does the green light symbolize?",
-    },
-    {
-        title: "Atomic Habits",
-        author: "James Clear",
-        genre: "Self-Help",
-        cover: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=120&h=180&fit=crop&auto=format",
-        question: "How do I build a habit that sticks?",
-    },
-];
 
 export const steps = [
     {
@@ -57,59 +27,61 @@ export const steps = [
     },
 ];
 
+
 export const features = [
     {
         icon: Mic,
         title: "Natural Voice Dialogue",
-        desc: "Speak naturally — no commands or keywords. The AI understands context, follows up, and responds like a thoughtful reader.",
+        desc: "Speak naturally—no commands required. The AI understands context and responds like a thoughtful partner, as seen in your live conversation dashboard.",
     },
     {
         icon: Zap,
-        title: "Instant Understanding",
-        desc: "Responses grounded entirely in the book's content. No hallucinations, no guessing — just the text, deeply understood.",
+        title: "Instant Synthesis",
+        desc: "Transform any PDF into a conversational experience in seconds by simply uploading your file and initiating the synthesis process.",
     },
     {
-        icon: Globe,
-        title: "50+ Languages",
-        desc: "Converse in your native language, even with books written in another. Real-time cross-lingual comprehension.",
+        icon: Volume2,
+        title: "Curated Voice Personalization",
+        desc: "Select from a diverse range of AI narrators, from calm and clear to authoritative and warm, to perfectly match your reading mood.",
     },
     {
         icon: MessageSquare,
         title: "Author & Character Modes",
-        desc: "Choose to speak with the author's perspective or step into a character's shoes for a fully immersive dialogue.",
+        desc: "Choose to engage with the author's unique perspective or step into a character's shoes for a fully immersive dialogue.",
     },
     {
         icon: Sparkles,
         title: "Deep Analysis Mode",
-        desc: "Ask for themes, motifs, narrative structure, or critical perspectives. Go beyond the surface with academic depth.",
+        desc: "Go beyond the surface. Ask for themes, narrative structures, or critical perspectives to gain deeper insights into your book.",
     },
     {
         icon: Lock,
         title: "Private & Secure",
-        desc: "Your reading habits and conversations are yours. End-to-end encrypted and never used to train models.",
+        desc: "Your reading habits and conversations are yours alone—fully encrypted and never used to train models.",
     },
 ];
+
 
 export const testimonials = [
     {
         name: "Priya Menon",
         role: "PhD Candidate, Literature",
         avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=60&h=60&fit=crop&auto=format",
-        quote: "I spent months trying to understand Derrida. One afternoon with Book Converse and I finally had the language to talk about deconstruction. Remarkable.",
+        quote: "I struggled for weeks with complex literary theory. Being able to choose an authoritative narrator and dive into 'Deep Analysis Mode' finally gave me the clarity I needed to master the material.",
         stars: 5,
     },
     {
         name: "Marcus Webb",
         role: "Serial Founder",
         avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&auto=format",
-        quote: "I read two books a week, but retaining is the hard part. Now I debrief every book out loud — it's like having a study partner who's read everything.",
+        quote: "The ability to synthesize a technical PDF into a live, spoken conversation in seconds is a game changer. It's like having a dedicated subject-matter expert on call for every book I read.",
         stars: 5,
     },
     {
         name: "Lena Fischer",
         role: "High School Teacher",
         avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&h=60&fit=crop&auto=format",
-        quote: "My students were disengaged. I had them converse with 1984 for 20 minutes. The class discussion afterward was the best I've had in a decade.",
+        quote: "I let my students pick their favorite AI voice to discuss classic novels, and the engagement was instant. The barrier between them and the text completely disappeared.",
         stars: 5,
     },
 ];

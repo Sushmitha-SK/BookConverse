@@ -22,7 +22,6 @@ const FileUploader = <T extends FieldValues>({
     field: { onChange, value },
   } = useController({ name, control });
 
-
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = useCallback(
@@ -36,7 +35,7 @@ const FileUploader = <T extends FieldValues>({
   );
 
   const onRemove = useCallback(
-    (e: React.MouseEvent) => {
+    (e: React.MouseEvent | React.KeyboardEvent) => {
       e.stopPropagation();
       onChange(null);
       if (inputRef.current) {
@@ -48,16 +47,28 @@ const FileUploader = <T extends FieldValues>({
 
   const isUploaded = !!value;
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if ((e.key === 'Enter' || e.key === ' ') && !disabled) {
+      e.preventDefault();
+      inputRef.current?.click();
+    }
+  };
+
   return (
     <FormItem className="w-full">
       <FormLabel className="form-label">{label}</FormLabel>
       <FormControl>
         <div
+          role="button"
+          tabIndex={disabled ? -1 : 0}
+          aria-label={isUploaded ? "File uploaded, click to remove or change" : "Click to upload a file"}
+          aria-disabled={disabled}
+          onKeyDown={handleKeyDown}
           className={cn(
-            "relative flex min-h-[180px] w-full cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed transition-all duration-300",
+            "relative flex min-h-45 w-full cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2",
             isUploaded
               ? "border-amber-600/30 bg-amber-50"
-              : "border-stone-300 bg-stone-50 hover:border-amber-500 hover:bg-amber-50/50",
+              : "border-border bg-stone-50 hover:border-amber-500 hover:bg-amber-50/50",
             disabled && "cursor-not-allowed opacity-50"
           )}
           onClick={() => !disabled && inputRef.current?.click()}
@@ -74,14 +85,13 @@ const FileUploader = <T extends FieldValues>({
           {isUploaded ? (
             <div className="relative flex w-full flex-col items-center gap-3 px-6 py-8">
               <div className="flex h-14 w-14 items-center justify-center rounded-full bg-green-100">
-                <Icon className="h-7 w-7 text-green-600" />
+                <Icon className="h-7 w-7 text-primary" aria-hidden="true" />
               </div>
 
               <div className="max-w-xs text-center">
                 <p className="truncate text-sm font-medium text-foreground">
                   {(value as File).name}
                 </p>
-
                 <p className="mt-1 text-xs text-foreground/50">
                   File uploaded successfully
                 </p>
@@ -90,28 +100,25 @@ const FileUploader = <T extends FieldValues>({
               <button
                 type="button"
                 onClick={onRemove}
-                className="absolute right-3 top-3 rounded-full bg-white p-2 shadow-sm transition hover:bg-red-50 hover:text-red-600"
+                onKeyDown={(e) => e.stopPropagation()} 
+                className="absolute right-3 top-3 rounded-full bg-white p-2 shadow-sm transition hover:bg-red-50 hover:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
+                aria-label="Remove uploaded file"
               >
-                <X className="h-4 w-4" />
+                <X className="h-4 w-4" aria-hidden="true" />
               </button>
             </div>
           ) : (
             <div className="flex flex-col items-center gap-3 px-6 py-8 text-center">
               <div className="flex h-14 w-14 items-center justify-center rounded-full bg-amber-100">
-                <Icon className="h-7 w-7 text-amber-700" />
+                <Icon className="h-7 w-7 text-amber-600" aria-hidden="true" />
               </div>
 
               <div>
-                <p className="text-sm font-medium text-stone-900">
-                  {placeholder}
-                </p>
-
-                <p className="mt-1 text-xs text-stone-500">
-                  {hint}
-                </p>
+                <p className="text-sm font-medium text-secondary-foreground">{placeholder}</p>
+                <p className="mt-1 text-xs text-secondary-foreground/50">{hint}</p>
               </div>
 
-              <span className="rounded-full bg-white px-3 py-1 text-xs font-medium text-stone-600 shadow-sm">
+              <span className="rounded-md bg-white px-3 py-1 text-xs font-medium text-secondary-foreground shadow-xs">
                 Click to browse
               </span>
             </div>

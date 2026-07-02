@@ -30,7 +30,6 @@ export const useSubscription = () => {
 
     let plan: PlanType = PLANS.FREE;
 
-    // Clerk Billing plan from JWT
     const clerkPlan = sessionClaims?.pla as string | undefined;
 
     if (clerkPlan === 'u:pro') {
@@ -38,7 +37,6 @@ export const useSubscription = () => {
     } else if (clerkPlan === 'u:standard') {
         plan = PLANS.STANDARD;
     } else {
-        // Fallback to metadata
         const metadataPlan = (
             user?.publicMetadata?.plan ||
             user?.publicMetadata?.billingPlan

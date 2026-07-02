@@ -8,7 +8,7 @@ import Testimonials from '@/components/Testimonials'
 
 const Page = () => {
   return (
-    <main className='wrapper container'>
+    <main className='wrapper container' id='main-content'>
       <HeroSection />
       <HowItWorks />
       <Features />
