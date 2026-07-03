@@ -44,7 +44,7 @@ const CTA = () => {
                 </h2>
 
                 <p className="text-muted-foreground max-w-lg leading-relaxed">
-                    Join 500+ readers who have already discovered what it means to truly understand — and be understood by — a book.
+                    Join readers who have already discovered what it means to truly understand — and be understood by — a book.
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center gap-4 mt-2">

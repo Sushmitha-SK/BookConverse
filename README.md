@@ -1,6 +1,8 @@
 # Book Converse
 
-**Turn any book into a voice conversation.** Upload a PDF and talk to an AI that has actually read it — ask questions, discuss themes, and explore ideas out loud instead of scrolling through pages.
+**Turn any book into a voice conversation.**
+
+Upload a PDF and talk to an AI-powered reading companion that has actually read it. Ask questions, explore ideas, and discuss through natural voice conversations.
 
 Built with Next.js, MongoDB, Clerk, Vapi, and ElevenLabs.
 
@@ -33,6 +35,7 @@ Live Application: https://bookconverse.vercel.app/
 | ------------------ | ------------------------------------------------------------------- |
 | Framework          | [Next.js 16](https://nextjs.org) (App Router), React 19, TypeScript |
 | Styling            | Tailwind CSS 4, shadcn/ui (Radix primitives)                        |
+| Animation          | Framer Motion                                                       |
 | Auth               | [Clerk](https://clerk.com)                                          |
 | Database           | MongoDB via [Mongoose](https://mongoosejs.com)                      |
 | File storage       | [Vercel Blob](https://vercel.com/docs/storage/vercel-blob)          |
