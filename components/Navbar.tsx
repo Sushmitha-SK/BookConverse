@@ -181,7 +181,7 @@ export function Navbar() {
                             href={href}
                             onClick={() => setMobileOpen(false)}
                             className={cn(
-                                "text-lg transition-colors font-medium",
+                                "text-sm transition-colors font-medium",
                                 isActive ? "text-primary" : "text-foreground"
                             )}
                         >
@@ -196,7 +196,7 @@ export function Navbar() {
                             <button
                                 aria-label="Sign in"
                                 onClick={() => setMobileOpen(false)}
-                                className="text-lg text-foreground font-medium"
+                                className="text-sm text-foreground font-medium"
                             >
                                 Sign In
                             </button>
@@ -205,7 +205,7 @@ export function Navbar() {
                         <SignUpButton mode="modal">
                             <button
                                 className={cn(
-                                    "relative overflow-hidden group px-6 py-2.5 text-sm font-medium transition-all duration-300 rounded-full",
+                                    "relative overflow-hidden group px-6 py-2.5 text-sm font-medium  transition-all duration-300 rounded-full",
                                     "bg-primary text-primary-foreground hover:opacity-90 shadow-md",
                                     "active:scale-95 transform transition-transform",
                                     "before:absolute before:inset-0 before:bg-white/20 before:-translate-x-full hover:before:animate-[shimmer_1.5s_infinite]"
